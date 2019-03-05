@@ -1,0 +1,990 @@
+/* Scss Document */
+
+@charset "UTF-8";
+/*! ============================================
+※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※
+このCSSファイルはSassから生成されていますので、
+編集しないようご注意ください。
+※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※
+============================================= */
+
+
+// --------------------------------------------
+// Style Guide
+// 基本的な考えは、OOCSSベース。
+// 
+// #命名規則
+// MindBEMdingをベースに以下のルールで記載。
+// block__element--modifier
+// ※Blockが複数単語になる場合は、「blockName」のようにキャメルケースにする。
+// ※分かりやすいクラス名は略名にする。
+// ※Block, Element, Modifierは、まとめて同じ箇所に記述する。
+// --------------------------------------------
+
+
+// ============================================
+// import css
+// ============================================
+
+//reset css
+//@import "reset";
+@import "base";
+// settings
+@import 'settings';
+// megamenu css
+@import 'megamenu';
+// "slick" slide show
+@import 'slick';
+@import 'slick-theme';
+
+// --------------------------------------------
+// Component
+// --------------------------------------------
+
+.title {
+	@include font-size(28); // JP 20px EN 28px
+	font-weight: 400;
+	text-align: center;
+	margin-bottom: 30px;
+	&:after {
+		content: "";
+		display: block;
+		width: 100px;
+		height: 1px;
+		background-color: $color-font;
+		margin: 30px auto 0;
+	}
+}
+
+.title2 {
+	color: white;
+	@include font-size(20);
+	text-align: center;
+	background-color: $color-main;
+	padding: 6px 0;
+}
+
+.title3 {
+	font-weight: 400;
+	@include font-size(26);
+	border-left: 5px solid $color-main;
+	border-bottom: 1px solid $color-main;
+	padding-left: 10px;
+}
+
+@mixin icon-arrowDown {
+	&:before {
+		content: url(#{$imgDir}arrow_down.svg);
+		display: inline-block;
+		width: 25px;
+		height: 25px;
+		padding-right: 10px;
+	}
+}
+
+// --------------------------------------------
+// Project
+// --------------------------------------------
+
+// headInfo ------------------------------
+.headInfo {
+	background-color: white;
+	.l-inner:after {
+		content: none; // for justify-content: space-between;
+	}
+	&--inner {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		//align-items: center;
+		@include media(sp) {
+			flex-flow: row wrap;
+			padding: 5px;
+		}
+	}
+	&__logo {
+		margin: 20px 20px 5px 0;
+		@include media(sp) {
+			margin: 10px 10px 5px 0;
+		}
+		img {
+			width: 300px;
+			@include media(sp) {
+				width: 200px;
+			}
+		}
+	}
+	&__date {
+		margin-top: 20px;
+		margin-right: 20px;
+		@include font-size(18);
+			@include media(sp) {
+				@include font-size(14);
+				margin-top: 10px;
+			}
+		dt {
+			clear: left;
+			float: left;
+			width: 4em;
+			background-color: $color-main;
+			color: white;
+			text-align: center;
+		}
+		dd {
+			padding-left: 4.5em;
+			&:nth-of-type(1) {
+				margin-bottom: 5px;
+			}
+		}
+	}
+	
+	&__btn {
+		width: 300px;
+		display: flex;
+		flex-flow: row nowrap;
+		@include media(sp) {
+			width: 100%;
+			margin-top: 5px;
+		}
+		li {
+			width: 100px;
+			display: flex;
+			align-items: center;
+			@include font-size(20);
+			@include hoverOpc;
+			@include media(sp) {
+				width: calc(100% / 3);
+			}
+			&:nth-child(1) {
+				background-color: $color-inqury;
+			}
+			&:nth-child(2) {
+				background-color: $color-access;
+			}
+			&:nth-child(3) {
+				background-color: $color-jpn;
+			}
+			a {
+				display: block;
+				width: 100%;
+				color: white;
+				text-align: center;
+				@include media(sp) {
+					@include font-size(16);
+				}
+			}
+		}
+	}
+}
+
+// nav ------------------------------
+nav {
+	background-color: $color-main;
+	box-shadow: 0px 9px 3px -3px rgba(black, 0.1);
+	position: relative; // for box-shadow
+	z-index: 2; // for box-shadow
+}
+
+// keyVisual ------------------------------
+.keyVisual {
+	width: 100%;
+	height: 300px;
+	overflow: hidden;
+	position: relative;
+	&__slider {
+		img {
+			max-width: none;
+		}
+	}
+}
+
+// subVisual ------------------------------
+.subVisual {
+	width: 100%;
+	height: 200px;
+	background: url(#{$imgDir}bg_sub01.jpg) center center/cover no-repeat $color-main;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	&__title {
+		@include font-size(36);
+		font-weight: 500;
+		color: white;
+		padding: 5px 30px;
+		background: rgba($color-sub, 0.7);
+	}
+}
+.subVisual-02 {
+	background: url(#{$imgDir}bg_sub02.jpg) center center/cover no-repeat $color-main;
+}
+.subVisual-03 {
+	background: url(#{$imgDir}bg_sub03.jpg) center center/cover no-repeat $color-main;
+}
+.subVisual-04 {
+	background: url(#{$imgDir}bg_sub04.jpg) center center/cover no-repeat $color-main;
+}
+
+// information ------------------------------
+.information {
+	background: white;
+	&--inner {
+		display: flex;
+		flex-flow: row;
+		align-items: center;
+		padding: 20px;
+		&:before {
+			content: "";
+			display: block;
+			width: 0;
+			min-height: 100px;
+		}
+		@include media(sp) {
+			width: 100%;
+			flex-flow: column;
+			&:before {
+				min-height: 0;
+			}
+		}
+	}
+	&__title {
+		width: 20%;
+		padding-right: 4em;
+		white-space: nowrap;
+		@include media(sp) {
+			width: 100%;
+			text-align: center;
+			padding-right: 0;
+			padding-bottom: 1em;
+		}
+	}
+	&__body {
+		padding-left: 4em;
+		border-left: 1px solid $color-font;
+		@include media(sp) {
+			padding-left: 0;
+			padding-right: 0;
+			border-left: none;
+		}
+		dt {
+			clear: both;
+			float: left;
+			width: 7em;
+			@include media(sp) {
+				float: none;
+			}
+		}
+		dd {
+			margin-left: 7em;
+			@include media(sp) {
+				margin-left: 0;
+				margin-bottom: 1em;
+			}
+			a {
+				@include hoverUnderline;
+			}
+		}
+	}
+}
+
+// showInfo ------------------------------
+.showInfo {
+	&--inner {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		@include space;
+		@include media(sp) {
+			flex-flow: column;
+		}
+	}
+	&__outline {
+		width: 55%;
+		@include media(sp) {
+			width: 100%;
+			margin-bottom: 20px;
+		}
+		&__body {
+			background-color: white;
+			padding: 20px;
+			dt {
+				clear: left;
+				float: left;
+				width: 7em;
+				background-color: $color-main;
+				color: white;
+				padding: 3px 5px;
+			}
+			dd {
+				padding-left: 8em;
+				margin-bottom: 15px;
+				&:nth-last-of-type(1) {
+					margin-bottom: 0;
+				}
+				a {
+					@include hoverUnderline;
+				}
+			}
+		}
+	}
+	&__bnr {
+		width: 36%;
+		@include media(sp) {
+			width: 100%;
+		}
+		a {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 360px;
+			height: 100px;
+			color: white;
+			font-weight: bold;
+			@include font-size(21);
+			@include hoverOpc;
+			background-image: url(#{$imgDir}bnr_brochure.svg);
+			margin: 0 auto;
+		}
+	}
+}
+
+// previousPhoto ------------------------------
+.previousPhoto {
+	@include space;
+	@include space-btm2;
+	overflow: hidden;
+	&--inner {
+		max-width: $width-main;
+	}
+	&__slider {
+		li {
+			padding: 0 10px;
+			img {
+				margin: 0 auto;
+			}
+		}
+	}
+}
+
+// links ------------------------------
+.links {
+	&__body {
+		background-color: white;
+		padding: 20px;
+		a {
+			@include hoverOpc;
+		}
+	}
+}
+
+// contact ------------------------------
+.contact {
+	@include space;
+	&--inner {
+		max-width: $width-main;
+	}
+	&__btn {
+		margin: 0 10px 40px;
+		a {
+			display: block;
+			width: 100%;
+			color: white;
+			background: $color-inqury;
+			padding: 20px 0;
+			text-align: center;
+			@include font-size(30);
+			border-radius: 10px;
+			@include hoverOpc;
+		}
+	}
+	&__box {
+		max-width: $width-main;
+		margin: 0 10px;
+		background: white;
+		border: 1px solid $color-sub;
+		&__title {
+			background: $color-sub;
+			text-align: center;
+			@include font-size(20);
+			font-weight: 400;
+			color: white;
+			padding: 10px 0;
+		}
+		&__address {
+			display: flex;
+			flex-flow: row nowrap;
+			@include media(sp) {
+				flex-flow: column;
+			}
+			dl {
+				width: 50%;
+				padding: 40px 0 0 50px;
+				@include media(sp) {
+					width: 100%;
+					padding: 20px;
+				}
+				dt {
+					@include font-size(18);
+					&:nth-of-type(2) {
+						margin-bottom: 5px;
+					}
+				}
+				dd {
+					&.contact--tel {
+						@include font-size(20);
+						margin-bottom: 15px;
+						span a {
+							@include font-size(36);
+							color: darkorange;
+						}
+					}
+					&.contact--jma-address {
+						@include font-size(13);
+						a {
+							display: inline-block;
+							margin-bottom: 10px;
+							@include hoverOpc;
+						}
+					}
+				}
+			}
+			figure {
+				width: 50%;
+				@include media(sp) {
+					display: none;
+				}
+				img {
+					width: 100%;
+				}
+			}
+		}
+	}
+}
+
+// footer ------------------------------
+.footer {
+	background-color: $color-sub;
+	color: white;
+	text-align: center;
+	&--inner {
+		@include space-top;
+		padding-bottom: 30px;
+	}
+	&__logo {
+		margin-bottom: 20px;
+		img {
+			width: 140px;
+		}
+	}
+	&__nav {
+		@include font-size(14);
+		margin-bottom: 10px;
+		li {
+			display: inline-block;
+			+ li:before {
+				content: "|";
+				color: white;
+				margin: 0 10px;
+			}
+			a {
+				color: white;
+			}
+		}
+	}
+	&__copyright {
+		@include font-size(14);
+	}
+}
+#page-top {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	a {
+		display: block;
+		width: 70px;
+		@include media(sp) {
+			width: 45px;
+		}
+		&:hover {
+			opacity: 0.5;
+		}
+	}
+}
+
+// pageDesc ------------------------------
+.pageDesc {
+	@include space;
+	&--inner {
+		max-width: $width-main;
+	}
+	p {
+		font-weight: 400;
+		@include media(sp) {
+			padding: 0 10px;
+		}
+	}
+}
+
+// outline ------------------------------
+.outline {
+	@include space-btm2;
+	&--inner {
+		max-width: $width-main;
+		@include media(sp) {
+			width: 100%;
+		}
+	}
+	&__body {
+		background-color: white;
+		padding: 20px;
+		dt {
+			clear: left;
+			float: left;
+			width: 13em;
+			color: $color-main;
+			font-weight: bold;
+			@include media(sp) {
+				float: none;
+			}
+		}
+		dd {
+			padding-left: 15em;
+			padding-bottom: 8px;
+			margin-bottom: 15px;
+			border-bottom: 1px solid $color-gy;
+			@include media(sp) {
+				padding-left: 0;
+			}
+			&:nth-last-of-type(1) {
+				margin-bottom: 0;
+			}
+			a {
+				@include hoverUnderline;
+			}
+		}
+	}
+}
+
+// figArea ------------------------------
+.figArea {
+	@include space;
+	background-color: white;
+	text-align: center;
+	&--inner {
+		max-width: $width-main;
+	}
+	&__title {
+		@include font-size(28);
+		text-align: center;
+		color: $color-main;
+		font-weight: bold;
+		margin-bottom: 30px;
+	}
+	figure + .figArea__title {
+		margin-top: 50px;
+	}
+}
+
+// categoryList ------------------------------
+.categoryList {
+	@include space-top;
+	@include media(sp) {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	&--inner {
+		max-width: $width-main;
+	}
+	table {
+		width: 100%;
+		margin: 0 auto;
+		border: 1px solid $color-main;
+		tr {
+			border: 1px solid $color-main;
+			&:nth-child(odd) {
+				background-color: rgba($color-main, 0.1);
+			}
+			&:nth-child(even) {
+				background-color: white;
+			}
+			td {
+				a {
+					width: 100%;
+					padding: 10px;
+					font-weight: bold;
+					@include hoverOpc;
+					display: flex; // for arrow
+					@include icon-arrowDown;
+				}
+			}
+		}
+	}
+	&__new {
+		background-color: orangered;
+		color: white;
+		margin-left: 10px;
+		padding: 0 5px;
+	}
+	&__concurrent {
+		background-color: $color-main;
+		color: white;
+		padding: 2px 10px;
+	}
+}
+
+// categoryDetail ------------------------------
+%categoryBodyBase {
+	border: 1px solid $color-main;
+	margin-bottom: 20px;
+	background-color: white;
+}
+%categoryBodyList {
+	&:before {
+		content: "●";
+		color: $color-main;
+		padding-right: 5px;
+	}
+}
+.categoryDetail {
+	@include space-top;
+	@include media(sp) {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	&--inner {
+		max-width: $width-main;
+	}
+	&--subInner {
+		width: 90%;
+		margin: 0 auto;
+		@include media(sp) {
+			width: 100%;
+		}
+	}
+	&__title {
+		margin-bottom: 20px;
+		&__concurrent {
+			background-color: $color-main;
+			color: white;
+			padding: 2px 10px;
+			@include font-size(18);
+		}
+	}
+	figure {
+		margin-bottom: 20px;
+		img {
+			box-shadow: 0 0 10px 0 #ccc; 
+		}
+	}
+	&__list {
+		@extend %categoryBodyBase;
+		padding: 20px;
+		li {
+			display: inline-block;
+			line-height: 1.8;
+			margin-right: 15px;
+			@extend %categoryBodyList;
+		}
+	}
+	&__txt {
+		@extend %categoryBodyBase;
+		padding: 10px;
+	}
+	&__define {
+		@extend %categoryBodyBase;
+		line-height: 1.8;
+		padding: 20px;
+		dt {
+			color: $color-main;
+			font-weight: bold;
+			@extend %categoryBodyList;
+		}
+		dd {
+			padding-left: 20px;
+		}
+	}
+	&__readmore a {
+		display: block;
+		line-height: 3.5em;
+		@include font-size(20);
+		text-align: center;
+		background-color: white;
+		border: 1px solid $color-main;
+		transition: .3s ease;
+		margin-bottom: 50px;
+		&:hover {
+			background-color: $color-main;
+			color: white;
+		}
+	}
+}
+
+// deadline ------------------------------
+.deadline {
+	@include space;
+	@include media(sp) {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	&--inner {
+		max-width: $width-main;
+	}
+	&__date {
+		border: 1px solid $color-main;
+		padding: 20px;
+		dt {
+			clear: left;
+			float: left;
+			width: 25em;
+			color: $color-main;
+			font-weight: bold;
+			@include media(sp) {
+				float: none;
+			}
+		}
+		dd {
+			padding-left: 25em;
+			padding-bottom: 5px;
+			margin-bottom: 10px;
+			border-bottom: 1px solid $color-gy;
+			@include media(sp) {
+				padding-left: 0;
+			}
+		}
+		&__red {
+			color: red;
+			font-weight: bold;
+		}
+	}
+}
+
+// feeList ------------------------------
+.feeList {
+	@include space-btm;
+	@include media(sp) {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	&--inner {
+		max-width: $width-main;
+		display: flex;
+		flex-flow: row wrap;
+		background-color: white;
+		@include media(sp) {
+			flex-flow: column;
+		}
+		&__full {
+			width: 100%;
+		}
+		&__half {
+			width: 50%;
+			@include media(sp) {
+				width: 100%;
+			}
+		}
+	}
+	&__price {
+		@include font-size(18);
+		margin: 20px;
+		dt {
+			clear: left;
+			float: left;
+			width: 9em;
+			background-color: $color-main;
+			color: white;
+			padding: 5px 10px;
+		}
+		dd {
+			padding: 5px 0 5px 10em;
+			margin-bottom: 10px;
+			font-weight: bold;
+		}
+	}
+	&__txt {
+		margin: 20px;
+	}
+	&__append {
+		margin: 20px;
+		color: $color-sub;
+		font-weight: bold;
+	}
+	&__items {
+		@include font-size(14);
+		margin: 15px;
+		border: 1px solid $color-main;
+		&__title {
+			background-color: $color-main;
+			color: white;
+			padding: 5px;
+		}
+		&__list {
+			margin: 15px;
+			color: $color-sub;
+			font-weight: bold;
+		}
+		&__txt {
+			margin: 15px;
+		}
+	}
+	figure {
+		padding: 15px;
+		text-align: center;
+		@include media(sp) {
+			padding: 5px;
+		}
+		img {
+			@include media(sp) {
+				max-width: 400px;
+			}
+		}
+	}
+}
+
+// schedule ------------------------------
+.schedule {
+	@include space-btm;
+	@include media(sp) {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	&--inner {
+		max-width: $width-main;
+	}
+	&__tbl {
+		width: 100%;
+		border: 1px solid $color-main;
+		tr {
+			background-color: white;
+			th {
+				background-color: $color-main;
+				color: white;
+				padding: 15px;
+				border-bottom: 1px solid white;
+			}
+			td {
+				padding: 15px;
+				border-bottom: 1px solid $color-main;
+			}
+			&:last-child th {
+				border-bottom: 1px solid $color-main;
+			}
+		}
+		&__define {
+			dt {
+				clear: left;
+				float: left;
+				width: 6em;
+				font-weight: bold;
+			}
+			dd {
+				padding-left: 6em;
+				padding-bottom: 5px;
+				margin-bottom: 5px;
+				border-bottom: 1px solid $color-gy;
+			}
+		}
+	}
+}
+
+// logoBanner ------------------------------
+.logoBanner {
+	@include space;
+	&--inner {
+		max-width: $width-main;
+	}
+	&__txt {
+		margin: 20px 0;
+	}
+	&__attention {
+		background-color: white;
+		border: 1px solid $color-main;
+		padding: 20px;
+		line-height: 1.8;
+		margin-bottom: 50px;
+	}
+	&__unit {
+		display: flex;
+		flex-wrap: wrap;
+		margin: 40px 0;
+		border: 1px solid $color-main;
+		background-color: white;
+		@include media(sp) {
+			flex-flow: column;
+		}
+		&-part {
+			width: 50%;
+			padding: 20px 0;
+			@include media(sp) {
+				width: 100%;
+			}
+			&--left {
+				padding-left: 20px;
+				padding-right: 10px;
+				@include media(sp) {
+					padding-left: 10px;
+				}
+			}
+			&--right {
+				padding-left: 10px;
+				padding-right: 20px;
+				@include media(sp) {
+					padding-right: 10px;
+				}
+			}
+		}
+		&__title {
+			width: 100%;
+		}
+		&__subTitle {
+			@include font-size(18);
+			border-left: 5px solid $color-main;
+			padding-left: 5px;
+			margin-bottom: 10px;
+		}
+		&__img {
+			text-align: center;
+			border: 1px solid $color-gy;
+			padding: 10px;
+			img {
+				width: 90%;
+				+ img {
+					padding-top: 10px;
+				}
+			}
+		}
+		&__btn {
+			margin: 10px 0;
+			a {
+				display: inline-block;
+				padding: 10px 20px;
+				@include font-size(14);
+				border: 1px solid $color-main;
+				transition: 0.3s ease;
+				&:hover {
+					background-color: $color-main;
+					color: white;
+				}
+			}
+		}
+		&__sourceTitle {
+			color: $color-main;
+			@include font-size(18);
+			margin: 15px 0;
+		}
+		&__sourceCode {
+			width: 321px;
+			overflow: auto;
+			word-wrap: break-word;
+			border: 1px solid $color-gy;
+			margin-bottom: 20px;
+			padding: 20px;
+			font-family: monospace, monospace;
+			@include media(sp) {
+				width: 100%;
+			}
+			pre {
+				margin-bottom: 10px;
+			}
+		}
+	}
+}
+

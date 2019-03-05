@@ -1,0 +1,207 @@
+/* Scss Document */
+
+@charset "UTF-8";
+
+// ============================================
+// サイトの基本設定
+// ============================================
+
+// 幅関係の設定 ------------------------------
+
+	$width-base: 1000px; //全体
+	$width-main: 800px; //メインエリアの幅
+
+// フォント関係の設定 ------------------------------
+
+	// 日本語
+	//@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+	//$font-base: "Noto Sans JP", "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", "游ゴシック体", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", Sans-Serif;
+	
+	// 英語
+	@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+	$font-base: 'Open Sans', "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", "游ゴシック体", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", Sans-Serif;
+
+	@mixin font-size($size, $base: 16) {
+	  font-size: $size + px;
+	  font-size: ($size / $base) + rem;
+	}
+	/* 記述例
+	p {
+	  @include font-size(12);
+	}*/
+
+// 色関係の設定 ------------------------------
+
+	// サイトカラー
+	$color-main: #00888d;
+	$color-sub: #238d41;
+	// フォントカラー
+	$color-font: #040210;
+	// リンクカラー
+	$color-link: #0864a4;
+	// 背景カラー
+	$color-bg: #f5faf6;
+	// Inqury
+	$color-inqury: #e50012;
+	// Access
+	$color-access: #1900da;
+	// JPN
+	$color-jpn: #962bda;
+	// その他
+	$color-gy: #cccccc;
+	
+	.red {
+		color: $color-inqury;
+		font-weight: bold;
+	}
+
+// ブレイクポイント ------------------------------
+
+	$breakpoints: (
+		sp: "screen and (max-width: 768px)",
+		pc: "screen and (min-width: 769px)",
+	);
+	@mixin media($breakpoint) {
+		@media #{map-get($breakpoints, $breakpoint)} {
+			@content;
+		}
+	}
+	/* 記述例
+	@include media(sp) {
+		background-color: green;
+	}*/
+
+// パス ------------------------------
+
+	$imgDir: "../img/"; //imageディレクトリ
+
+// コンテンツ間のスペース ------------------------------
+
+	// 原則、スペースは下部に入れる
+	@mixin space {
+		padding: 50px 0 50px;
+		@include media(sp) {
+			padding: 30px 0 30px;
+		}
+	}
+	@mixin space-top {
+		padding-top: 50px;
+		@include media(sp) {
+			padding-top: 30px;
+		}
+	}
+	@mixin space-btm {
+		padding-bottom: 50px;
+		@include media(sp) {
+			padding-bottom: 30px;
+		}
+	}
+	@mixin space-btm2 {
+		padding-bottom: 80px;
+		@include media(sp) {
+			padding-bottom: 50px;
+		}
+	}
+
+// ============================================
+// Style
+// ============================================
+
+// Common ------------------------------
+
+html {
+	font-size: 16px;
+}
+body {
+	font-family: $font-base;
+	font-weight: 400;
+	color: $color-font;
+	line-height: 1.5;
+	background: $color-bg;
+}
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+// Layout ------------------------------
+
+*,
+*::after {
+	box-sizing: border-box;
+}
+.l-inner {
+	min-width: 320px;
+	max-width: $width-base;
+	width: 100%;
+	margin: 0 auto;
+	&:after {
+		content: "";
+		clear: both;
+		display: block;
+	}
+}
+
+// Link ------------------------------
+
+a {
+	text-decoration: none;
+	color: $color-link;
+	outline: none;
+}
+
+ // 透過アニメーション
+@mixin hoverOpc {
+	transition: opacity 0.3s ease;
+	&:hover {
+		opacity: 0.5;
+	}
+}
+// 下線アニメーション
+@mixin hoverUnderline {
+	position: relative;
+	display: inline-block;
+	&::after {
+		position: absolute;
+		bottom: -1px;
+		left: 0;
+		content: '';
+		width: 100%;
+		height: 1px;
+		background: $color-main;
+		transform: scale(0, 1);
+		transform-origin: left top;
+		transition: transform .3s;
+	}
+	&:hover::after {
+		transform: scale(1, 1);
+	}
+}
+// 画像ズーム
+@mixin hoverZoom {
+	img {
+		transform: scale(1);
+		transition: .3s ease-in-out;
+	}
+	&:hover img {
+		transform: scale(1.2);
+	}
+}
+
+// リンク無効
+%nolink-base {
+	pointer-events: none;
+	cursor: default;
+}
+.nolink {
+	a {
+		@extend %nolink-base;
+		opacity: 0.5;
+	}
+}
+.nolink-bg {
+	background-color: $color-gy !important;
+	a {
+		@extend %nolink-base;
+	}
+}

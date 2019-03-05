@@ -1,0 +1,267 @@
+/* 
+- Name: megamenu.js - style.css
+- Version: 1.0
+- Latest update: 29.01.2016.
+- Author: Mario Loncarek
+- Author web site: http://marioloncarek.com
+*/
+/* ––––––––––––––––––––––––––––––––––––––––––––––––––
+megamenu.js STYLE STARTS HERE
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* ––––––––––––––––––––––––––––––––––––––––––––––––––
+Screen style's
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.menu-container {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.menu-mobile {
+	display: none;
+	padding: 20px;
+	background-color: #26A4AD;
+	color: $color-wh;
+	@include media(sp) {
+		display: block;
+	}
+	&:after {
+		content: url(#{$imgDir}icon_menu.png);
+		width: 32px;
+		height: 32px;
+		padding: 0;
+		float: right;
+		position: relative;
+		top: 50%;
+		transform: translateY(-15%);
+	}
+}
+
+.menu-dropdown-icon:before {
+	content: url(#{$imgDir}icon_arrow_down.png);
+	width: 32px;
+	height: 32px;
+	display: none;
+	cursor: pointer;
+	float: right;
+	padding-top: 10px;
+	padding-right: 20px;
+	@include media(sp) {
+		display: block;
+	}
+}
+
+.menu > ul { // 大メニュー
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	list-style: none;
+	margin: 0 auto;
+	padding: 0;
+	/* IF .menu position=relative -> ul = container width, ELSE ul = 100% width */
+	box-sizing: border-box;
+	@include media(sp) {
+		display: none;
+		flex-flow: column;
+		&.show-on-mobile {
+			display: block;
+		}
+	}
+	&:before {
+		content: "";
+		display: table;
+	}
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+	> li { // 大メニューの各ナビ
+		background: $color-wh;
+		width: calc(100% / 6);
+		transition: 0.3s ease;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		/*position: relative;
+		&:after { // 区切り線
+			content: "";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 1px;
+			z-index: 100;
+			margin: auto 0;
+			background: $color-gy;
+			width: 1px;
+			height: 20px;
+			display: block;
+		}*/
+		@include media(sp) {
+			width: 100%;
+			display: block;
+		}
+		br {
+			@include media(sp) {
+				display: none;
+			}
+		}
+		a {
+			display: block;
+			padding: 10px 0;
+			font-weight: 500;
+			text-align: center;
+			width: 100%;
+			@include media(sp) {
+				text-align: left;
+				padding: 15px 10px;
+			}
+		}
+		&:nth-child(1) {
+			background-color: $color-main;
+			> a {
+				color: $color-wh;
+			}
+		}
+		&:nth-child(2) {
+			border-bottom: 3px solid $color-materials;
+			> a {
+				color: $color-materials;
+			}
+			&:hover {
+				background-color: $color-materials;
+				a {
+					color: $color-wh;
+				}
+			}
+		}
+		&:nth-child(3) {
+			border-bottom: 3px solid $color-tech;
+			> a {
+				color: $color-tech;
+			}
+			&:hover {
+				background-color: $color-tech;
+				a {
+					color: $color-wh;
+				}
+			}
+		}
+		&:nth-child(4) {
+			border-bottom: 3px solid $color-products;
+			> a {
+				color: $color-products;
+			}
+			&:hover {
+				background-color: $color-products;
+				a {
+					color: $color-wh;
+				}
+			}
+		}
+		&:nth-child(5) {
+			border-bottom: 3px solid $color-vegefru;
+			> a {
+				color: $color-vegefru;
+			}
+			&:hover {
+				background-color: $color-vegefru;
+				a {
+					color: $color-wh;
+				}
+			}
+		}
+		&:nth-child(6) {
+			border-bottom: 3px solid $color-animal;
+			> a {
+				color: $color-animal;
+			}
+			&:hover {
+				background-color: $color-animal;
+				a {
+					color: $color-wh;
+				}
+			}
+		}
+		> ul { // ドロップダウンメニュー
+			display: none;
+			position: absolute;
+			top: 70px;
+			left: 0;
+			width: 100%;
+			background: #EEF5E6;
+			padding: 20px;
+			margin: 0;
+			z-index: 99;
+			box-sizing: border-box;
+			@include media(sp) {
+				position: relative;
+				top: 0;
+				&.normal-sub {
+					width: 100%;
+				}
+			}
+			&:before {
+				content: "";
+				display: table;
+			}
+			&:after {
+				content: "";
+				display: table;
+				clear: both;
+			}
+			> li { // ドロップダウンメニュー内の各ナビタイトル
+				float: left;
+				width: calc(100% / 5);
+				@include media(sp) {
+					float: none;
+					width: 100%;
+				}
+				a {
+					display: block;
+					width: 90%;
+					text-align: left;
+					border-bottom: 1px solid lighten($color-main, 40%);
+				}
+				> ul { // ドロップダウンメニュー内の最小単位のナビ
+					display: block;
+					margin: 10px 0 0;
+					box-sizing: border-box;
+					@include media(sp) {
+						position: relative;
+					}
+					&:before {
+						content: "";
+						display: table;
+					}
+					&:after {
+						content: "";
+						display: table;
+						clear: both;
+					}
+					> li {
+						float: left;
+						width: 100%;
+						@include font-size(13);
+						@include media(sp) {
+							float: none;
+						}
+						a {
+							border: 0;
+							@include hoverUnderline;
+						}
+					}
+				}
+			}
+			&.normal-sub {
+				width: 300px;
+				left: auto;
+				> li {
+					width: 100%;
+				}
+			}
+		}
+	}
+}

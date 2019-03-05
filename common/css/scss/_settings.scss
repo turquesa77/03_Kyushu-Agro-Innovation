@@ -1,0 +1,236 @@
+/* Scss Document */
+
+// ============================================
+// サイトの基本設定（変数）
+// ============================================
+
+// 幅関係の設定 ------------------------------
+	$width-base: 1200px; //全体
+	$width-main: 800px; //メインエリアの幅
+
+// フォント関係の設定 ------------------------------
+	@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+	$font-base: "Noto Sans JP", "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", "游ゴシック体", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", Sans-Serif;
+
+	@mixin font-size($size, $base: 16) {
+	  font-size: $size + px;
+	  font-size: ($size / $base) + rem;
+	}
+	/* 記述例
+	p {
+	  @include font-size(12);
+	}*/
+
+// 色関係の設定 ------------------------------
+	// サイトカラー
+	$color-main: #68932F;
+	$color-sub: #8CC63F;
+	$color-light: #F8FAF5;
+	$color-materials: #048A83;
+	$color-tech: #046EB7;
+	$color-products: #F29801;
+	$color-vegefru: #059A48;
+	$color-animal: #D95B55;
+	$color-farming: #c72e20;
+	// フォントカラー
+	$color-font: #2C3521;
+	// リンクカラー
+	$color-link: #4F5D3C;
+	// 他
+	$color-bk: #000000;
+	$color-wh: #ffffff;
+	$color-red: #E02634;
+	$color-gy: #cccccc;
+
+// ブレイクポイント ------------------------------
+	$breakpoints: (
+		sp: "screen and (max-width: 768px)",
+		pc: "screen and (min-width: 769px)",
+	);
+	@mixin media($breakpoint) {
+		@media #{map-get($breakpoints, $breakpoint)} {
+			@content;
+		}
+	}
+	/* 記述例
+	@include media(sp) {
+		background-color: green;
+	}*/
+
+// パス ------------------------------
+	$imgDir: "../img/"; //imageディレクトリ
+
+// コンテンツ間のスペース ------------------------------
+	// 原則、スペースは下部に入れる
+	@mixin space-c {
+		padding-bottom: 80px;
+		@include media(sp) {
+			padding-bottom: 50px;
+		}
+	}
+	@mixin space-c2 {
+		padding-bottom: 50px;
+		@include media(sp) {
+			padding-bottom: 30px;
+		}
+	}
+	// 上部にスペースを入れる場合
+	@mixin space-top {
+		padding-top: 50px;
+		@include media(sp) {
+			padding-bottom: 30px;
+		}
+	}
+
+	// インデント（2行目以降をn文字下げる）
+	@mixin indent($ind: 1) {
+		padding-left: #{$ind}em;
+		text-indent: -#{$ind}em;
+	}
+
+	// 余白クラス（0～100px）
+	$num: 5; // 繰上げ単位
+	@for $i from 0 through 20 {
+		.mt#{$i * $num} {
+			margin-top: #{$i * $num}px;
+		}
+		.mb#{$i * $num} {
+			margin-bottom: #{$i * $num}px;
+		}
+		.pt#{$i * $num} {
+			padding-top: #{$i * $num}px;
+		}
+		.pb#{$i * $num} {
+			padding-bottom: #{$i * $num}px;
+		}
+	}
+
+// ============================================
+// Style
+// ============================================
+
+// Common ------------------------------
+html {
+	font-size: 16px;
+}
+body {
+	font-family: $font-base;
+	font-weight: 400;
+	color: $color-font;
+	line-height: 1.5;
+	background: $color-light;
+}
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+// Layout ------------------------------
+*,
+*::after {
+	box-sizing: border-box;
+}
+.l-inner {
+	min-width: 320px;
+	max-width: 1200px;
+	width: 100%;
+	margin: 0 auto;
+	&:after {
+		content: "";
+		clear: both;
+		display: block;
+	}
+}
+
+// Link ------------------------------
+a {
+	text-decoration: none;
+	color: $color-link;
+	outline: none;
+}
+ // 透過アニメーション
+@mixin hoverOpc {
+	transition: opacity 0.3s ease;
+	&:hover {
+		opacity: 0.5;
+	}
+}
+// 下線アニメーション
+@mixin hoverUnderline {
+	position: relative;
+	display: inline-block;
+	&::after {
+		position: absolute;
+		bottom: -1px;
+		left: 0;
+		content: '';
+		width: 100%;
+		height: 1px;
+		background: $color-main;
+		transform: scale(0, 1);
+		transform-origin: left top;
+		transition: transform .3s;
+	}
+	&:hover::after {
+		transform: scale(1, 1);
+	}
+}
+// 画像ズーム
+@mixin hoverZoom {
+	img {
+		transform: scale(1);
+		transition: .3s ease-in-out;
+	}
+	&:hover img {
+		transform: scale(1.2);
+	}
+}
+// リンク無効
+.nolink {
+	a {
+		pointer-events: none;
+		opacity: 0.5;
+		cursor: default;
+	}
+}
+.nolink2 {
+	background-color: $color-gy !important;
+	a {
+		pointer-events: none;
+		cursor: default;
+	}
+}
+.nolink3 {
+	a {
+		pointer-events: none;
+		cursor: default;
+	}
+}
+
+// Icon ------------------------------
+
+// 外部リンクアイコン（Google Material Icon）
+.linkOut {
+	@include font-size(14);
+	padding-left: 5px;
+}
+.message {
+	@include font-size(18);
+	padding-left: 5px;
+}
+.arrowRight {
+	@include font-size(18);
+	padding-left: 5px;
+}
+
+// 矢印 - 三角
+@mixin trigone-down($color: $color-main) {
+	content: "";
+	display: block;
+	width: 0;
+	border-top: 20px solid $color;
+	border-right: 15px solid transparent;
+	border-left: 15px solid transparent;
+	margin: auto;
+	margin-left: -10px;
+}
